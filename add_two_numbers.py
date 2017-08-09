@@ -5,37 +5,30 @@ class ListNode(object):
 
 class Solution(object):
     def addTwoNumbers(self, l1, l2):
-        curr1 = l1
-        curr2 = l2
-        carry = 0
-        s = 0
-        lastN = None
-        n = None
+        total = 0
+        for curr in [l1, l2]:
+            num = 0
+            level = 0
+            while curr is not None:
+                num = curr.val * (10**level) + num
+                level = level + 1
+                curr = curr.next
+            total += num
+        print total
 
-        while curr1 and curr2 is not None:
-            s = curr1.val + curr2.val
-            if lastN is not None:
-                lastN.next = ListNode(s % 10 + carry)
-                lastN = lastN.next
+        digit = total % 10
+        node = ListNode(digit)
+        lastNode = node
+
+        while total != None:
+            if (total / 10) != 0:
+                total = int(total / 10)
+                lastNode.next = ListNode(total % 10)
+                lastNode = lastNode.next
             else:
-                n = ListNode(s % 10)
-                lastN = n
-            carry = 1 if (s > 9) else 0
+                total = None
 
-            curr1 = curr1.next
-            curr2 = curr2.next
-
-        if curr1 is not None:
-            lastN.next = curr1
-            curr1.val = curr1.val + carry
-        if curr2 is not None:
-            lastN.next = curr2
-            curr2.val = curr2.val + carry
-        if curr1 and curr2 is None:
-            if carry > 0:
-                lastN.next = ListNode(carry)
-
-        return n
+        return node
 
     def printNode(self, node):
         curr = node
@@ -58,6 +51,6 @@ if __name__ == "__main__":
     l5.next = l6
 
     sol = Solution()
-    sol.printNode(sol.addTwoNumbers(l1, l4))
+    sol.printNode(sol.addTwoNumbers(l1, l5))
 
 
