@@ -6,10 +6,8 @@ class Solution(object):
         :rtype: List[int]
         """
         for idx_a, a in enumerate(nums):
-            print "idx_a: " + str(idx_a)
             for idx_b in xrange(idx_a+1, len(nums)):
                 b = nums[idx_b]
-                print "idx_b: " + str(idx_b)
                 if target == (a + b):
                     return [idx_a, idx_b]
 
